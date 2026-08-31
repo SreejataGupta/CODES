@@ -1,0 +1,26 @@
+import java.util.HashMap;
+
+class Solution {
+    public boolean isSubset(int a[], int b[]) {
+        // Quick check: if b has more elements than a, it cannot be a subset
+        if (b.length > a.length) {
+            return false;
+        }
+
+        // Store frequency of each element in array 'a'
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : a) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        // Check if array 'b' elements are available in required frequencies
+        for (int num : b) {
+            if (!map.containsKey(num) || map.get(num) == 0) {
+                return false; // Element missing or insufficient frequency
+            }
+            map.put(num, map.get(num) - 1); // Consume one instance
+        }
+
+        return true;
+    }
+}
