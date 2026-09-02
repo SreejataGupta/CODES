@@ -1,0 +1,71 @@
+import java.util.Arrays;
+
+class Solution {
+    // Main function to return the frequency of the target element
+    public int countFreq(int[] arr, int target) {
+        int n = arr.length;
+        int lb = lowerBound(arr, n, target);
+        
+        // If target is not present in the array
+        if (lb == n || arr[lb] != target) {
+            return 0;
+        }
+        
+        int ub = upperBound(arr, n, target);
+        return ub - lb;
+    }
+
+    // Returns first index where arr[index] >= target
+    private int lowerBound(int[] a, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = n;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] >= x) {
+                ans = mid;
+                high = mid - 1; // Try to find a smaller index on the left
+            } else {
+                low = mid + 1;  // Look on the right side
+            }
+        }
+        return ans;
+    }
+
+    // Returns first index where arr[index] > target
+    private int upperBound(int[] a, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = n;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] > x) {
+                ans = mid;
+                high = mid - 1; // Try to find a smaller index on the left
+            } else {
+                low = mid + 1;  // Look on the right side
+            }
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        // Example 1
+        int[] arr1 = {0, 0, 1, 1, 1, 2, 3};
+        int target1 = 1;
+        System.out.println("Array: " + Arrays.toString(arr1) + ", Target: " + target1);
+        System.out.println("Count: " + sol.countFreq(arr1, target1)); // Output: 3
+
+        // Example 2
+        int[] arr2 = {5, 5, 5, 5, 5, 5};
+        int target2 = 5;
+        System.out.println("\nArray: " + Arrays.toString(arr2) + ", Target: " + target2);
+        System.out.println("Count: " + sol.countFreq(arr2, target2)); // Output: 6
+
+        // Example 3 (Target not present)
+        int[] arr3 = {2, 4, 6, 8, 10};
+        int target3 = 3;
+        System.out.println("\nArray: " + Arrays.toString(arr3) + ", Target: " + target3);
+        System.out.println("Count: " + sol.countFreq(arr3, target3)); // Output: 0
+    }
+}
