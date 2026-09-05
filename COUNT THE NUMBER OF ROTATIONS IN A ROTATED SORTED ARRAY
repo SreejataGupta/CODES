@@ -1,0 +1,39 @@
+class Solution {
+    public int findKRotation(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        int ansIndex = 0;
+        int minVal = Integer.MAX_VALUE;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            // If the search space is already sorted
+            if (nums[low] <= nums[high]) {
+                if (nums[low] < minVal) {
+                    minVal = nums[low];
+                    ansIndex = low;
+                }
+                break;
+            }
+
+            // If left half is sorted
+            if (nums[low] <= nums[mid]) {
+                if (nums[low] < minVal) {
+                    minVal = nums[low];
+                    ansIndex = low;
+                }
+                low = mid + 1;
+            } 
+            // If right half is sorted
+            else {
+                if (nums[mid] < minVal) {
+                    minVal = nums[mid];
+                    ansIndex = mid;
+                }
+                high = mid - 1;
+            }
+        }
+
+        return ansIndex;
+    }
+}
