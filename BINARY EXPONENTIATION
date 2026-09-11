@@ -1,0 +1,36 @@
+public class BinaryExponentiation {
+
+    // Iterative approach - O(log n) time, O(1) space
+    public static long powerIterative(long base, long exp) {
+        long result = 1;
+        base = base; // Handles initial base state
+
+        while (exp > 0) {
+            // If exp is odd, multiply base with result
+            if ((exp & 1) == 1) {
+                result *= base;
+            }
+            // exp must be even now, square the base and halve exponent
+            base *= base;
+            exp >>= 1; // Equivalent to exp / 2
+        }
+        return result;
+    }
+
+    // Recursive approach - O(log n) time, O(log n) stack space
+    public static long powerRecursive(long base, long exp) {
+        if (exp == 0) return 1;
+
+        long half = powerRecursive(base, exp / 2);
+        if (exp % 2 == 0) {
+            return half * half;
+        } else {
+            return base * half * half;
+        }
+    }
+
+    public static void main(String[] args) {
+        long base = 2, exp = 10;
+        System.out.println(base + "^" + exp + " = " + powerIterative(base, exp)); // Output: 1024
+    }
+}
