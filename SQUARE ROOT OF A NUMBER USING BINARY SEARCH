@@ -1,0 +1,29 @@
+public class PrecisionSquareRoot {
+
+    public static double sqrt(double n, double precision) {
+        if (n < 0) return Double.NaN;
+        if (n == 0) return 0;
+
+        double left = 0;
+        // For numbers less than 1, square root is larger than the number itself
+        double right = (n < 1.0) ? 1.0 : n; 
+
+        while ((right - left) > precision) {
+            double mid = left + (right - left) / 2.0;
+
+            if (mid * mid > n) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+
+        return left + (right - left) / 2.0;
+    }
+
+    public static void main(String[] args) {
+        double number = 10.0;
+        double precision = 1e-7;
+        System.out.printf("sqrt(%.2f) ≈ %.7f%n", number, sqrt(number, precision));
+    }
+}
