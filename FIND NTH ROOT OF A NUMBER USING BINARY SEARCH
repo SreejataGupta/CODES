@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main {
+
+    static double nthRoot(double num, int n) {
+        double low = 0;
+        double high = num;
+
+        for (int i = 0; i < 100; i++) {
+            double mid = (low + high) / 2;
+
+            double value = Math.pow(mid, n);
+
+            if (value < num) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+
+        return (low + high) / 2;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number: ");
+        double num = sc.nextDouble();
+
+        System.out.print("Enter n: ");
+        int n = sc.nextInt();
+
+        System.out.println("Nth root = " + nthRoot(num, n));
+    }
+}
