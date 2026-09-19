@@ -1,0 +1,31 @@
+public class Solution {
+    public boolean searchMatrix(int[][] mat, int target) {
+        if (mat == null || mat.length == 0 || mat[0].length == 0) {
+            return false;
+        }
+
+        int m = mat.length;      // Number of rows
+        int n = mat[0].length;   // Number of columns
+
+        int low = 0;
+        int high = m * n - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            // Map 1D index to 2D matrix coordinates
+            int row = mid / n;
+            int col = mid % n;
+
+            if (mat[row][col] == target) {
+                return true;
+            } else if (mat[row][col] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return false;
+    }
+}
