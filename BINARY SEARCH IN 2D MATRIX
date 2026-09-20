@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        // Start at the top-right corner
+        int row = 0;
+        int col = n - 1;
+
+        while (row < m && col >= 0) {
+            int current = matrix[row][col];
+
+            if (current == target) {
+                return true;
+            } else if (current > target) {
+                // Current value is too large -> target must be to the left
+                col--;
+            } else {
+                // Current value is too small -> target must be further down
+                row++;
+            }
+        }
+
+        return false;
+    }
+}
