@@ -1,0 +1,23 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int firstNonRepeating(int[] arr) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        // Step 1: Count the frequency of each element
+        for (int num : arr) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Traverse the array again to find the first element with frequency 1
+        for (int num : arr) {
+            if (map.get(num) == 1) {
+                return num;
+            }
+        }
+
+        // Step 3: Return 0 if no non-repeating element exists
+        return 0;
+    }
+}
