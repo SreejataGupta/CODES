@@ -1,0 +1,19 @@
+class Solution {
+    public boolean check(int[] nums) {
+        int count = 0;
+        int n = nums.length;
+        
+        for (int i = 0; i < n; i++) {
+            // Compare current element with the next element (using modulo for circular wrap-around)
+            if (nums[i] > nums[(i + 1) % n]) {
+                count++;
+            }
+            // If there are more than 1 drops, it cannot be a sorted and rotated array
+            if (count > 1) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
