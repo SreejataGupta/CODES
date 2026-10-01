@@ -1,0 +1,19 @@
+public class CountOddNumbers {
+    public static int countOdds(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        
+        int count = 0;
+        for (int num : nums) {
+            // Checks if the number is odd (handles both positive and negative integers)
+            if (num % 2 != 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6, -7, -8};
+        System.out.println("Odd count: " + countOdds(arr)); // Output: 4
+    }
+}
