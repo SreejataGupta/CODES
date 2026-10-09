@@ -1,0 +1,20 @@
+class Solution {
+    public int[][] generate(int numRows) {
+        int[][] triangle = new int[numRows][];
+
+        for (int row = 0; row < numRows; row++) {
+            triangle[row] = new int[row + 1];
+            
+            long ans = 1;
+            triangle[row][0] = 1; // First element is always 1
+
+            for (int col = 1; col <= row; col++) {
+                ans = ans * (row - col + 1);
+                ans = ans / col;
+                triangle[row][col] = (int) ans;
+            }
+        }
+
+        return triangle;
+    }
+}
