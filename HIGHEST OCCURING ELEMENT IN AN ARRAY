@@ -1,0 +1,26 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int highestOccurringElement(int[] nums) {
+        // Map to store frequency of each element: <Element, Frequency>
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        
+        int maxElement = nums[0];
+        int maxCount = 0;
+        
+        // Traverse the map to find the element with the highest frequency
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                maxElement = entry.getKey();
+            }
+        }
+        
+        return maxElement;
+    }
+}
