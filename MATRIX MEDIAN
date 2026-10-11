@@ -1,0 +1,45 @@
+class Solution {
+    public int median(int[][] mat) {
+        int r = mat.length;
+        int c = mat[0].length;
+
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MIN_VALUE;
+
+        for (int i = 0; i < r; i++) {
+            low = Math.min(low, mat[i][0]);
+            high = Math.max(high, mat[i][c - 1]);
+        }
+
+        int desired = (r * c + 1) / 2;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int count = 0;
+
+            for (int i = 0; i < r; i++) {
+                int left = 0, right = c;
+
+                while (left < right) {
+                    int m = left + (right - left) / 2;
+
+                    if (mat[i][m] <= mid) {
+                        left = m + 1;
+                    } else {
+                        right = m;
+                    }
+                }
+
+                count += left;
+            }
+
+            if (count < desired) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+
+        return low;
+    }
+}
