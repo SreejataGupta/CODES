@@ -1,0 +1,53 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public static int secondMostFrequentElement(int[] arr) {
+        if (arr == null || arr.length == 0) return -1;
+
+        // Step 1: Count frequencies using a HashMap
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : arr) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        int maxFreq = -1, secondMaxFreq = -1;
+        int maxEle = -1, secondMaxEle = -1;
+
+        // Step 2: Iterate through the map to find highest and second-highest
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+            int element = entry.getKey();
+            int freq = entry.getValue();
+
+            if (freq > maxFreq) {
+                // Shift max to second max
+                secondMaxFreq = maxFreq;
+                secondMaxEle = maxEle;
+                
+                maxFreq = freq;
+                maxEle = element;
+            } else if (freq == maxFreq) {
+                // Tie-breaker for highest: pick the smaller element value
+                if (element < maxEle) {
+                    maxEle = element;
+                }
+            } else if (freq > secondMaxFreq) {
+                secondMaxFreq = freq;
+                secondMaxEle = element;
+            } else if (freq == secondMaxFreq) {
+                // Tie-breaker for second highest: pick the smaller element value
+                if (element < secondMaxEle) {
+                    secondMaxEle = element;
+                }
+            }
+        }
+
+        // Return -1 if no second highest frequency exists
+        return secondMaxFreq == -1 ? -1 : secondMaxEle;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 3, 3, 3};
+        System.out.println(secondMostFrequentElement(arr)); // Output: 2
+    }
+}
