@@ -1,0 +1,36 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public static int sumHighestAndLowestFrequency(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        
+        // Step 1: Count the frequency of each element using a HashMap
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        
+        int maxFreq = 0;
+        int minFreq = Integer.MAX_VALUE;
+        
+        // Step 2: Find the maximum and minimum frequencies from the map values
+        for (int freq : freqMap.values()) {
+            maxFreq = Math.max(maxFreq, freq);
+            minFreq = Math.min(minFreq, freq);
+        }
+        
+        // Step 3: Return the sum of the highest and lowest frequencies
+        return maxFreq + minFreq;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 2, 3, 3, 3};
+        System.out.println("Output: " + sumHighestAndLowestFrequency(arr1)); // Output: 4 (3 + 1)
+
+        int[] arr2 = {4, 4, 5, 5, 6};
+        System.0out.println("Output: " + sumHighestAndLowestFrequency(arr2)); // Output: 3 (2 + 1)
+    }
+}
