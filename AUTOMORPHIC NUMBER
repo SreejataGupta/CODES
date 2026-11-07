@@ -1,0 +1,18 @@
+class Solution {
+    public boolean isAutomorphic(int n) {
+        if (n < 0) return false;
+        
+        int square = n * n;
+        int temp = n;
+        int divisor = 1;
+        
+        // Find the correct power of 10 based on the number of digits in n
+        while (temp > 0) {
+            divisor *= 10;
+            temp /= 10;
+        }
+        
+        // Check if the last digits of the square match n
+        return (square % divisor) == n;
+    }
+}
